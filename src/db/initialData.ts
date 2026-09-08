@@ -8,7 +8,11 @@ import {
   Message, 
   NotificationItem, 
   WorldArchetypeInfo,
-  CompanionInfo
+  CompanionInfo,
+  AttendanceRecord,
+  SubjectAttendance,
+  ExamRecord,
+  TextbookLessonData
 } from '../types';
 
 export const COMPANIONS: CompanionInfo[] = [
@@ -381,6 +385,65 @@ int main() {
         }
       ]
     },
+    textbookData: {
+      id: 'tb-1',
+      lessonId: 'les-1',
+      title: 'Chapter 01: Understanding C For Loops',
+      topic: 'For Loop Mechanics in C',
+      subject: 'Programming',
+      chapters: [
+        {
+          chapterNumber: 1,
+          title: 'Why Do We Use Loops?',
+          explanation: 'A loop allows a program to execute a sequence of instructions repeatedly without manual duplication. Without loops, constructing 10 fortress walls requires 10 lines of repeated code.',
+          workedExample: {
+            codeOrFormula: '// Manual approach (Slow & Error Prone)\nbuildWall(1);\nbuildWall(2);\nbuildWall(3);\n// ... manual repetition 10 times',
+            explanation: 'Manual duplication is inefficient and introduces syntax bugs when changing wall counts.'
+          },
+          keyTakeaways: [
+            'Loops automate repetitive execution.',
+            'Reduces source code lines from 10+ down to 1 loop block.',
+            'Ensures scalable execution when processing arbitrary boundaries.'
+          ],
+          understandingCheck: {
+            question: 'What is the primary advantage of using a C for loop over manual copy-pasted statements?',
+            options: [
+              'Loops run automatically without CPU memory',
+              'Loops automate repeated actions using counter conditions',
+              'Loops close terminal windows automatically'
+            ],
+            correctOptionIndex: 1,
+            explanation: 'Loops use counter conditions to repeat statement execution cleanly!'
+          }
+        },
+        {
+          chapterNumber: 2,
+          title: 'The Three Control Expressions',
+          explanation: 'A C for loop consists of three expressions: for (initialization; condition; increment). 1. Initialization: int i = 0 runs ONCE. 2. Condition: i < 10 tested BEFORE every iteration. 3. Increment: i++ runs AFTER loop body.',
+          workedExample: {
+            codeOrFormula: 'for (int i = 0; i < 10; i++) {\n    buildWall(i + 1);\n}',
+            explanation: 'When i reaches 10, condition 10 < 10 becomes FALSE, terminating the loop.'
+          },
+          keyTakeaways: [
+            'Initialization executes once at start.',
+            'Condition boolean evaluates before entering loop body.',
+            'Increment modifies counter after body completes.'
+          ],
+          understandingCheck: {
+            question: 'Which expression in `for (int i = 0; i < 10; i++)` decides whether the loop body continues?',
+            options: [
+              'int i = 0 (Initialization)',
+              'i < 10 (Relational Condition)',
+              'i++ (Increment Step)'
+            ],
+            correctOptionIndex: 1,
+            explanation: 'The relational condition `i < 10` tests whether another iteration is permitted.'
+          }
+        }
+      ],
+      summary: 'Mastered C loop syntax, counter variables, and relational conditions!',
+      audioTranscript: 'Welcome to Chapter 01: Understanding C For Loops. In C programming, a for loop executes statements repeatedly using three parts: initialization, relational condition, and increment step. Let us explore worked examples together.'
+    },
     createdAt: '2026-09-06T10:00:00Z',
     assignedStudentIds: ['std-1', 'std-2', 'std-3', 'std-4', 'std-5', 'std-6'],
     status: 'PUBLISHED'
@@ -548,5 +611,90 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     timestamp: '1 day ago',
     read: true,
     type: 'MISSION'
+  }
+];
+
+export const INITIAL_ATTENDANCE: AttendanceRecord[] = [
+  { id: 'att-1', date: '2026-09-07', subject: 'Computer Science', status: 'present', topic: 'C For Loop Construction Mechanics' },
+  { id: 'att-2', date: '2026-09-06', subject: 'Chemistry', status: 'present', topic: 'Acid-Base Neutralization & Titration' },
+  { id: 'att-3', date: '2026-09-05', subject: 'Mathematics', status: 'present', topic: 'Calculus Rate of Change' },
+  { id: 'att-4', date: '2026-09-04', subject: 'Computer Science', status: 'late', topic: 'Memory Stack Debugging' },
+  { id: 'att-5', date: '2026-09-03', subject: 'Chemistry', status: 'present', topic: 'Solution pH Scale Spectrum' },
+  { id: 'att-6', date: '2026-09-02', subject: 'Mathematics', status: 'absent', topic: 'Derivatives & Power Rule' },
+  { id: 'att-7', date: '2026-09-01', subject: 'Computer Science', status: 'present', topic: 'Introduction to Iterative Logic' }
+];
+
+export const INITIAL_SUBJECT_ATTENDANCE: SubjectAttendance[] = [
+  { subject: 'Computer Science', teacher: 'Mr. David Harrison', percentage: 98, attendedClasses: 19, totalClasses: 20 },
+  { subject: 'Mathematics', teacher: 'Prof. Marcus Miller', percentage: 96, attendedClasses: 18, totalClasses: 19 },
+  { subject: 'Chemistry', teacher: 'Dr. Elena Vance', percentage: 91, attendedClasses: 17, totalClasses: 19 }
+];
+
+export const INITIAL_EXAMS: ExamRecord[] = [
+  {
+    id: 'exam-1',
+    examName: 'CS-201 Midterm Evaluation',
+    title: 'Computer Science Midterm — Iterative Logic & For Loops',
+    code: 'CS-201',
+    subject: 'Computer Science',
+    date: '2026-09-02',
+    time: '10:00 AM',
+    duration: '90 Mins',
+    location: 'Lab 3B',
+    topics: ['C For Loops', 'Memory Allocation', 'Control Flow'],
+    status: 'completed',
+    score: 88,
+    marks: 88,
+    totalMarks: 100,
+    percentage: 88,
+    grade: 'A',
+    teacherComment: 'Outstanding execution on loop boundary condition problems and Builder World simulation code.'
+  },
+  {
+    id: 'exam-2',
+    examName: 'CHEM-102 Practical Lab Exam',
+    title: 'Chemistry Practical — Titration & Acid-Base Equilibrium',
+    code: 'CHEM-102',
+    subject: 'Chemistry',
+    date: '2026-08-28',
+    time: '01:30 PM',
+    duration: '60 Mins',
+    location: 'Chemistry Lab A',
+    topics: ['pH Titration', 'Molarity', 'Neutralization'],
+    status: 'completed',
+    score: 92,
+    marks: 92,
+    totalMarks: 100,
+    percentage: 92,
+    grade: 'A+',
+    teacherComment: 'Excellent lab safety compliance and accurate pH color transition readings.'
+  },
+  {
+    id: 'exam-3',
+    examName: 'CS-201 Comprehensive Final',
+    title: 'Computer Science Final Examination — Data Structures & Algorithms',
+    code: 'CS-201',
+    subject: 'Computer Science',
+    date: '2026-09-18',
+    time: '09:00 AM',
+    duration: '120 Mins',
+    location: 'Main Auditorium',
+    topics: ['Nested Loops', 'Arrays', 'Pointers', 'Complexity Analysis'],
+    status: 'upcoming',
+    totalMarks: 100
+  },
+  {
+    id: 'exam-4',
+    examName: 'CHEM-102 Theory Midterm',
+    title: 'Chemistry Theory Examination — Chemical Equilibrium & Thermodynamics',
+    code: 'CHEM-102',
+    subject: 'Chemistry',
+    date: '2026-09-22',
+    time: '11:00 AM',
+    duration: '90 Mins',
+    location: 'Science Hall 104',
+    topics: ['Equilibrium Constant', 'Le Chatelier Principle', 'Enthalpy'],
+    status: 'upcoming',
+    totalMarks: 100
   }
 ];

@@ -184,6 +184,75 @@ export interface ComicStory {
   summary: string;
 }
 
+// Textbook & Voice Lesson Types
+export interface TextbookChapter {
+  chapterNumber: number;
+  title: string;
+  explanation: string;
+  workedExample?: {
+    codeOrFormula: string;
+    explanation: string;
+  };
+  keyTakeaways: string[];
+  understandingCheck?: {
+    question: string;
+    options: string[];
+    correctOptionIndex: number;
+    explanation: string;
+  };
+}
+
+export interface TextbookLessonData {
+  id: string;
+  lessonId: string;
+  title: string;
+  topic: string;
+  subject: string;
+  chapters: TextbookChapter[];
+  summary: string;
+  audioTranscript?: string;
+}
+
+// Academic Attendance Data
+export interface AttendanceRecord {
+  id: string;
+  date: string;
+  status: 'present' | 'absent' | 'late' | 'excused';
+  subject: string;
+  topic?: string;
+  remarks?: string;
+}
+
+export interface SubjectAttendance {
+  subject: string;
+  teacher?: string;
+  percentage: number;
+  attendedClasses: number;
+  totalClasses: number;
+}
+
+// Examination Data
+export interface ExamRecord {
+  id: string;
+  examName: string;
+  title?: string;
+  code?: string;
+  subject: string;
+  date: string;
+  time: string;
+  duration?: string;
+  location: string;
+  topics?: string[];
+  status: 'upcoming' | 'completed';
+  score?: number;
+  marks?: number;
+  totalMarks?: number;
+  percentage?: number;
+  grade?: string;
+  feedback?: string;
+  teacherComment?: string;
+}
+
 export interface Lesson {
   id: string;
   title: string;
@@ -204,6 +273,7 @@ export interface Lesson {
   challenge: GameChallenge;
   assessment: Assessment;
   comicStory?: ComicStory;
+  textbookData?: TextbookLessonData;
   createdAt: string;
   assignedStudentIds: string[];
   status: 'DRAFT' | 'PUBLISHED';

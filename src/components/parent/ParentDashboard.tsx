@@ -85,18 +85,22 @@ export const ParentDashboard: React.FC<ParentDashboardProps> = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs pt-1">
           <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
             <p className="text-[10px] text-slate-400 font-bold uppercase">Learning Streak</p>
             <p className="text-base font-extrabold text-amber-300 mt-0.5">🔥 {student.streakDays} Days Active</p>
           </div>
           <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <p className="text-[10px] text-slate-400 font-bold uppercase">Experience Points</p>
-            <p className="text-base font-extrabold text-indigo-300 mt-0.5">⭐ {student.xp} XP Earned</p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase">Overall Attendance</p>
+            <p className="text-base font-extrabold text-cyan-300 mt-0.5">📅 94% (18/20 Present)</p>
           </div>
           <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <p className="text-[10px] text-slate-400 font-bold uppercase">Teacher Notes</p>
-            <p className="text-base font-extrabold text-emerald-300 mt-0.5">Class Leader</p>
+            <p className="text-[10px] text-slate-400 font-bold uppercase">Latest Exam Grade</p>
+            <p className="text-base font-extrabold text-emerald-300 mt-0.5">🏅 88 / 100 (Grade A)</p>
+          </div>
+          <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <p className="text-[10px] text-slate-400 font-bold uppercase">Teacher Feedback</p>
+            <p className="text-base font-extrabold text-purple-300 mt-0.5">Class Leader</p>
           </div>
         </div>
       </div>

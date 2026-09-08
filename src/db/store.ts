@@ -10,7 +10,10 @@ import {
   WorldArchetype,
   CompanionId,
   LearningStyle,
-  Motivation
+  Motivation,
+  AttendanceRecord,
+  SubjectAttendance,
+  ExamRecord
 } from '../types';
 
 import { 
@@ -21,7 +24,10 @@ import {
   INITIAL_ATTEMPTS, 
   INITIAL_ANNOUNCEMENTS, 
   INITIAL_MESSAGES, 
-  INITIAL_NOTIFICATIONS 
+  INITIAL_NOTIFICATIONS,
+  INITIAL_ATTENDANCE,
+  INITIAL_SUBJECT_ATTENDANCE,
+  INITIAL_EXAMS
 } from './initialData';
 
 const STORAGE_KEYS = {
@@ -33,6 +39,9 @@ const STORAGE_KEYS = {
   ANNOUNCEMENTS: 'eduverse_announcements',
   MESSAGES: 'eduverse_messages',
   NOTIFICATIONS: 'eduverse_notifications',
+  ATTENDANCE: 'eduverse_attendance',
+  SUBJECT_ATTENDANCE: 'eduverse_subject_attendance',
+  EXAMS: 'eduverse_exams',
   CURRENT_USER_ID: 'eduverse_current_user_id',
 };
 
@@ -98,6 +107,15 @@ export const dbStore = {
     }
     if (!localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS)) {
       localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(INITIAL_NOTIFICATIONS));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.ATTENDANCE)) {
+      localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify(INITIAL_ATTENDANCE));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.SUBJECT_ATTENDANCE)) {
+      localStorage.setItem(STORAGE_KEYS.SUBJECT_ATTENDANCE, JSON.stringify(INITIAL_SUBJECT_ATTENDANCE));
+    }
+    if (!localStorage.getItem(STORAGE_KEYS.EXAMS)) {
+      localStorage.setItem(STORAGE_KEYS.EXAMS, JSON.stringify(INITIAL_EXAMS));
     }
     if (!localStorage.getItem(STORAGE_KEYS.CURRENT_USER_ID)) {
       localStorage.setItem(STORAGE_KEYS.CURRENT_USER_ID, INITIAL_USERS[0].id);
@@ -234,6 +252,20 @@ export const dbStore = {
       );
       setItem(STORAGE_KEYS.STUDENTS, updatedStudents);
     }
+  },
+
+  // ATTENDANCE
+  getAttendance(): AttendanceRecord[] {
+    return getItem(STORAGE_KEYS.ATTENDANCE, INITIAL_ATTENDANCE);
+  },
+
+  getSubjectAttendance(): SubjectAttendance[] {
+    return getItem(STORAGE_KEYS.SUBJECT_ATTENDANCE, INITIAL_SUBJECT_ATTENDANCE);
+  },
+
+  // EXAMS
+  getExams(): ExamRecord[] {
+    return getItem(STORAGE_KEYS.EXAMS, INITIAL_EXAMS);
   },
 
   // ANNOUNCEMENTS

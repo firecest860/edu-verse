@@ -11,7 +11,10 @@ import {
   WorldArchetype,
   CompanionId,
   LearningStyle,
-  Motivation
+  Motivation,
+  AttendanceRecord,
+  SubjectAttendance,
+  ExamRecord
 } from '../types';
 
 const delay = (ms = 150) => new Promise(resolve => setTimeout(resolve, ms));
@@ -134,6 +137,42 @@ export const apiClient = {
     async getAll(): Promise<AssessmentAttempt[]> {
       await delay(100);
       return dbStore.getAttempts();
+    }
+  },
+
+  attendance: {
+    async getRecords(): Promise<AttendanceRecord[]> {
+      await delay(100);
+      return dbStore.getAttendance();
+    },
+    async getSubjectAttendance(): Promise<SubjectAttendance[]> {
+      await delay(100);
+      return dbStore.getSubjectAttendance();
+    },
+    async getOverview() {
+      await delay(100);
+      return {
+        records: dbStore.getAttendance(),
+        subjects: dbStore.getSubjectAttendance()
+      };
+    }
+  },
+
+  exams: {
+    async getAll(): Promise<ExamRecord[]> {
+      await delay(100);
+      return dbStore.getExams();
+    }
+  },
+
+  academic: {
+    async getOverview() {
+      await delay(100);
+      return {
+        overallMastery: 91.3,
+        gradeAverage: 'A / 3.92',
+        activeStreak: 14
+      };
     }
   },
 

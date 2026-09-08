@@ -10,7 +10,10 @@ import {
   Bell,
   BookOpen,
   Layers,
-  Settings
+  Settings,
+  UserCheck,
+  FileText,
+  BookMarked
 } from 'lucide-react';
 import { UserRole } from '../../types';
 
@@ -33,9 +36,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ role, activeTab, onTabChange }
       case 'STUDENT':
         return [
           { id: 'dashboard', label: 'Learning Universe', icon: Compass },
+          { id: 'textbook', label: 'AI Interactive Textbook', icon: BookMarked, badge: 'READ' },
           { id: 'comics', label: 'AI Interactive Comics', icon: BookOpen, badge: 'NEW' },
           { id: 'builder-world', label: 'C Builder World', icon: Sparkles, badge: 'FLAGSHIP' },
           { id: 'chemistry-lab', label: 'Chemistry Virtual Lab', icon: FlaskConical },
+          { id: 'academic-review', label: 'Academic Review', icon: Award },
+          { id: 'attendance', label: 'Attendance (94%)', icon: UserCheck },
+          { id: 'examinations', label: 'Examinations', icon: FileText },
           { id: 'achievements', label: 'Badges & XP', icon: Award },
         ];
       case 'PARENT':

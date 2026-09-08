@@ -34,6 +34,10 @@ import { AssessmentResultModal } from './components/student/AssessmentResultModa
 import { ParentDashboard } from './components/parent/ParentDashboard';
 import { CForLoopWorld } from './components/world/CForLoopWorld';
 import { ChemistryLabWorld } from './components/world/ChemistryLabWorld';
+import { TextbookLesson } from './components/student/TextbookLesson';
+import { AcademicReview } from './components/student/AcademicReview';
+import { AttendancePage } from './components/student/AttendancePage';
+import { ExaminationsPage } from './components/student/ExaminationsPage';
 
 export function App() {
   useEffect(() => {
@@ -200,6 +204,36 @@ export function App() {
                   onOpenWorldSelector={() => setShowWorldSelector(true)}
                   onLaunchLesson={(l) => setActiveTab('builder-world')}
                   onLaunchChemistryLab={() => setActiveTab('chemistry-lab')}
+                />
+              )}
+
+              {activeTab === 'textbook' && (
+                <TextbookLesson
+                  companionId={currentStudentProfile.companionId}
+                  onLaunchSimulation={(subject?: string) => {
+                    if (subject === 'Chemistry') {
+                      setActiveTab('chemistry-lab');
+                    } else {
+                      setActiveTab('builder-world');
+                    }
+                  }}
+                  onLaunchComic={() => setActiveTab('comics')}
+                />
+              )}
+
+              {activeTab === 'academic-review' && (
+                <AcademicReview
+                  onNavigate={(tab) => setActiveTab(tab)}
+                />
+              )}
+
+              {activeTab === 'attendance' && (
+                <AttendancePage />
+              )}
+
+              {activeTab === 'examinations' && (
+                <ExaminationsPage
+                  onNavigate={(tab) => setActiveTab(tab)}
                 />
               )}
 

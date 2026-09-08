@@ -1,77 +1,64 @@
-# Implementation Plan — AI Comic Learning & Live Chemistry Reaction Engine
+# Master Implementation Plan — EduVerse AI Product Transformation
 
-Implement two signature interactive capabilities for **EduVerse AI**:
-1. **AI-Generated Interactive Comic Learning**: Story-driven educational comics guiding students through concepts with their selected companion, interactive prediction choices, and seamless transition into 2D simulation worlds.
-2. **Live Visual Chemistry Lab Reaction Engine**: State-driven chemical titration simulation with 2D liquid mixing physics, indicator color transitions, logarithmic pH calculations, and interactive neutralization challenges.
+**Tagline**: *“What your teacher teaches becomes your world.”*
+**Core USP**: *“We don't put games around education. We turn education itself into the game.”*
 
-All existing persistent data flows, onboarding, companion selection, skill progression tree, C Builder World, Teacher SaaS portal, and Parent portal will remain 100% active and preserved.
+Transform **EduVerse AI** into a 4K-ready, production-quality AI education platform featuring **Textbook Mode (Primary Modality)**, **Optional Voice Mode**, **Academic Review**, **Attendance Tracking**, **Examinations Management**, expanded Parent/Teacher portals, and companion hero personalization.
+
+All existing code, localStorage DB persistence, API Client facade, C Builder World, Chemistry Virtual Lab, AI Comic Learning, onboarding, and companion selection logic will remain 100% active and preserved.
 
 ---
 
 ## User Review Required
 
 > [!IMPORTANT]
-> **Key Architecture Decisions**:
-> 1. **Interactive Comic System (`src/components/student/AIComicLearning.tsx`)**:
->    - Features multi-panel story reader, dialogue bubbles, concept highlight callouts, interactive prediction checks (+25 XP), and companion guide integration (`NOVA`, `LYRA`, `AXEL`).
->    - Includes narrative progression: `COMIC DISCOVERY` ➔ `SIMULATION` ➔ `CHALLENGE` ➔ `MASTERY`.
-> 2. **Live Visual Chemistry Reaction Engine (`src/components/world/ChemistryLabWorld.tsx`)**:
->    - Uses Canvas 2D rendering for fluid level height, surface wave motion, mixing particle swirls, indicator color spectrum (Acid colorless ➔ Neutral clear/green ➔ Base vibrant magenta/pink), and live pH probe.
->    - Full state controls (`+10mL HCl`, `+10mL NaOH`, `Stir Solution`, `Reset Apparatus`).
-> 3. **Teacher AI Studio Extension**:
->    - Teacher can toggle format options: `[Interactive World]`, `[AI Comic]`, `[Challenge]`, or `[Quiz]` with interactive comic preview before assigning.
-> 4. **Navigation Tab**:
->    - Add `COMICS` to student navigation sidebar and mobile views.
+> **Key Architectural Extensions**:
+> 1. **Textbook Mode (`src/components/student/TextbookLesson.tsx`)**:
+>    - Primary structured reading modality for all AI lessons. Features chapter table of contents, reading progress, concept highlights, worked examples, "Check Your Understanding" checkpoints, and key takeaways.
+> 2. **Optional Voice Mode**:
+>    - Audio read-along narration player with Play, Pause, Replay, Speed controls (1.0x, 1.25x, 1.5x) and synchronized visual text transcript.
+> 3. **New Student Academic Pages**:
+>    - `AcademicReview.tsx`: Concept mastery breakdown, teacher feedback, academic timeline, assignment status.
+>    - `AttendancePage.tsx`: Overall attendance gauge (94%), subject-wise attendance (CS 98%, Math 96%, Chem 91%), and monthly calendar view with green/red/amber status markers.
+>    - `ExaminationsPage.tsx`: Upcoming exam schedule, past exam marks (e.g. `88/100 - Strong loop fundamentals`), and "Prepare with EduVerse AI" study launchers.
+> 4. **Parent Portal Extensions**:
+>    - Includes Parent Attendance Summary & Parent Examination Results views.
+> 5. **Expanded Student Navigation**:
+>    - Sidebar & navigation tabs: `Learning Universe`, `AI Interactive Comics`, `Missions`, `Worlds`, `Journey`, `Academic Review`, `Attendance`, `Examinations`, `Achievements`, `Progress`.
+> 6. **GitHub Push**:
+>    - Build verification (`npm run build`), Git commit, and automatic push to `https://github.com/firecest860/edu-verse.git`.
 
 ---
 
-## Proposed Technical Changes
+## Proposed File Changes & Additions
 
-### 1. Data Schema & Model Additions (`src/types/index.ts`)
-- `ComicPanel`: Panel ID, title, characterDialogue, conceptHighlight, codeOrFormulaSnippet, predictionChoice?: { question: string; options: string[]; correctIdx: number; explanation: string }, bgTheme.
-- `ComicStory`: Story ID, lessonId, title, topic, subject, companionId, chapters: ComicPanel[], totalXP: number.
-- `ChemistryState`: hclVolume, naohVolume, totalVolume, molarityHCl, molarityNaOH, calculatedPH, indicatorColor, isStirred, neutralizationPercent, statusMessage.
+### New Components
+1. `src/components/student/TextbookLesson.tsx`: Interactive digital textbook view with chapter TOC, reading progress, code callouts, and interactive checkpoints.
+2. `src/components/student/AcademicReview.tsx`: Academic overview of strengths, areas to improve, concept mastery, and teacher feedback.
+3. `src/components/student/AttendancePage.tsx`: Attendance percentage, monthly calendar, and subject-wise attendance metrics.
+4. `src/components/student/ExaminationsPage.tsx`: Upcoming exams, past grade cards, teacher feedback, and "Prepare with EduVerse AI" quick study launcher.
 
-### 2. AI Comic Generator & Reader (`src/components/student/AIComicLearning.tsx`)
-- Story generator mapping lesson concepts (e.g. C For Loops: *"The Fortress of Ten"*; Chemistry: *"The pH Spectrum Quest"*) to the student's active companion.
-- Panel-by-panel interactive viewer with smooth transitions, speech bubbles, concept callouts, interactive prediction cards with immediate feedback, chapter progression bar, and "Enter 2D Simulation World" CTA.
-- **Comics Landing View** with "TODAY'S LEARNING STORY" hero card and subject filters.
-
-### 3. State-Driven Live Chemistry Reaction Engine (`src/components/world/ChemistryLabWorld.tsx`)
-- Dynamic 2D Canvas rendering:
-  - Beaker graduations (25mL to 150mL).
-  - Liquid level calculated from `hclVolume + naohVolume`.
-  - Surface wave physics using sine math.
-  - Indicator color transition:
-    - Acid (pH < 6.8): Soft pinkish-clear liquid (`rgba(244, 63, 94, 0.15)`).
-    - Neutral (pH 6.8–7.2): Crystal clear teal (`rgba(16, 185, 129, 0.35)`).
-    - Base (pH > 8.2): Vibrant magenta/pink (`rgba(217, 70, 239, 0.85)`).
-  - Swirling mixing particles when stirring or adding reagents.
-- Real-time educational feedback: *"Neutralization achieved! pH = 7.0"*.
-- Challenge Mode: Adjust reagents to hit target neutral pH 7.0 ± 0.2 to unlock +120 XP and launch quiz!
-
-### 4. Teacher AI Studio Extension (`src/components/teacher/AILearningStudio.tsx`)
-- Add format choice buttons: `[Interactive World]`, `[AI Comic]`, `[Challenge]`, `[Quiz]`.
-- Interactive Comic Preview modal allowing teachers to review comic panels before assigning to class.
-
-### 5. Student Navigation Update (`src/components/layout/Sidebar.tsx` & `src/App.tsx`)
-- Add `COMICS` tab to Student sidebar navigation (`Home`, `Missions`, `Worlds`, `Comics`, `Journey`, `Achievements`, `Progress`).
+### Updated Components
+1. `src/types/index.ts`: Add `AttendanceRecord`, `ExamRecord`, `TextbookChapter`, `TextbookLessonData` types.
+2. `src/db/initialData.ts`: Add seeded attendance records and exam grade cards.
+3. `src/components/layout/Sidebar.tsx`: Add Academic Review, Attendance, Examinations to Student sidebar items with Lucide React icons.
+4. `src/components/student/StudentDashboard.tsx`: Enhance AXEL hero card, add quick links to Textbook Mode, Academic Review, Attendance, and Exams.
+5. `src/components/teacher/AILearningStudio.tsx`: Add `Textbook Lesson` and `Voice Lesson` format choices.
+6. `src/components/parent/ParentDashboard.tsx`: Add Attendance summary and Examinations progress tab.
+7. `src/App.tsx`: Route new tabs (`academic-review`, `attendance`, `examinations`, `textbook`) and open modals.
 
 ---
 
-## Verification Plan
+## Verification & Deployment Plan
 
 ### Automated Verification
-- Run `npm run build` to verify zero TypeScript errors or broken imports.
+1. Run `npm run build` to verify 0 TypeScript compilation or bundling errors.
 
-### Manual Verification Flow
-1. **Comics Navigation**: Switch to Student role, click `COMICS` tab on sidebar.
-2. **Comic Reader**: Click "Continue Story" for *"The Fortress of Ten — C For Loops"*.
-3. **Interactive Predictions**: Progress through panels, answer prediction check, view companion dialogue (`AXEL`).
-4. **Transition to Simulation**: Click "Enter Builder World" button at end of comic.
-5. **Live Chemistry Lab**: Launch Chemistry Virtual Lab.
-   - Click `+10mL HCl` ➔ Observe liquid level rise and pH drop to 1.5.
-   - Click `+10mL NaOH` (multiple times) ➔ Watch liquid mix, surface wave animate, and color shift from clear to bright magenta at pH 9.5!
-   - Adjust volume to achieve pH 7.0 neutralization ➔ Trigger confetti celebration & +120 XP.
-6. **Teacher AI Studio**: Switch to Teacher persona. Select `AI Comic` format option, generate lesson, open comic preview modal, assign to class.
-7. **Parent Check**: Switch to Parent persona. Verify plain-language growth summary updates cleanly.
+### Manual Demo Flow Verification
+1. **Student Textbook Mode**: Open "Mastering C For Loops" in Read/Textbook Mode. Verify TOC, chapter progress, and worked code examples.
+2. **Optional Voice Player**: Click "Listen to Lesson". Test Play/Pause/Replay/Speed controls.
+3. **Academic Review**: Navigate to `Academic Review`. Verify subject mastery & academic timeline.
+4. **Attendance Page**: Navigate to `Attendance`. Verify 94% attendance, subject metrics, and calendar view.
+5. **Examinations Page**: Navigate to `Examinations`. Verify upcoming C Programming exam & past grade cards (`88/100`).
+6. **Parent Portal Check**: Switch to Parent role. Verify Parent Attendance & Examination views.
+7. **Git & GitHub Push**: Run `git add .`, `git commit -m "feat: complete master product transformation with textbook mode, attendance, exams, and academic review"`, and `git push origin main`.
