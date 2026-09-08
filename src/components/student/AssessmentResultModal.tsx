@@ -106,6 +106,14 @@ export const AssessmentResultModal: React.FC<AssessmentResultModalProps> = ({
               "{attempt.aiAnalysis.naturalLanguageInsight}"
             </p>
           </div>
+
+          <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs text-emerald-300 flex items-center justify-between">
+            <span className="flex items-center gap-1.5 font-semibold">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              Progress & Mastery Recorded
+            </span>
+            <span className="text-[10px] text-slate-400">Teacher & Parent Portals Updated</span>
+          </div>
         </div>
 
         {/* Footer Actions */}

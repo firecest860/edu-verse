@@ -308,7 +308,7 @@ export const AIComicLearning: React.FC<AIComicLearningProps> = ({
                 className="py-3 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-400 hover:from-emerald-400 hover:to-cyan-300 text-slate-950 font-black text-xs shadow-glow-emerald flex items-center space-x-2 animate-bounce transition-all"
               >
                 <Play className="w-4 h-4 fill-slate-950" />
-                <span>Enter 2D {selectedStory.subject === 'Chemistry' ? 'Chemistry Virtual Lab' : 'Builder World'}</span>
+                <span>Enter the World → Apply What You Learned</span>
               </button>
             )}
           </div>

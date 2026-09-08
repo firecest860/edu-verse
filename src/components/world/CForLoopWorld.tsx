@@ -128,8 +128,16 @@ int main() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const width = canvas.width;
-    const height = canvas.height;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) {
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const width = rect.width || canvas.width;
+    const height = rect.height || canvas.height;
 
     // 1. Draw Sky Gradient
     const skyGradient = ctx.createLinearGradient(0, 0, 0, height * 0.7);
@@ -425,6 +433,30 @@ int main() {
           )}
         </div>
       </div>
+
+      {/* 6-Stage Flow Transition: Stage 4 -> Stage 5 Assessment */}
+      {isCompleted && (
+        <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950 via-slate-900 to-indigo-950 border border-emerald-500/40 shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in duration-300">
+          <div>
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold mb-2">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>STAGE 4 COMPLETE — VIRTUAL WORLD SIMULATION</span>
+            </div>
+            <h3 className="text-xl font-extrabold text-white">Concept Applied Successfully!</h3>
+            <p className="text-xs text-slate-300 mt-1">
+              You constructed all 10 walls using for-loop iteration. Now test your understanding in the Mastery Assessment.
+            </p>
+          </div>
+
+          <button
+            onClick={onLaunchAssessment}
+            className="py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wide shadow-glow-emerald transition-all flex items-center space-x-2 shrink-0"
+          >
+            <span>Take Mastery Assessment →</span>
+            <Award className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
